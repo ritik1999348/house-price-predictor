@@ -10,7 +10,116 @@ st.set_page_config(
     page_icon="🏠",
     layout="wide"
 )
+st.markdown("""
+<style>
 
+/* Main App */
+.stApp {
+    background-image: url("https://images.unsplash.com/photo-1600585154526-990dced4db0d");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* Dark Overlay */
+.main::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.35);
+    z-index: -1;
+}
+
+/* Title */
+h1 {
+    color: white !important;
+    font-size: 55px !important;
+    font-weight: 800 !important;
+}
+
+/* Subheader */
+h3 {
+    color: white !important;
+    font-size: 40px !important;
+    font-weight: 700 !important;
+}
+
+/* Labels */
+label {
+    color: white !important;
+    font-weight: 600 !important;
+}
+
+/* Tabs */
+.stTabs [data-baseweb="tab"] {
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    background: rgba(255,255,255,0.15);
+    border-radius: 10px;
+    padding: 10px 20px;
+    margin-right: 10px;
+}
+
+/* Input Boxes */
+.stSelectbox div[data-baseweb="select"],
+.stNumberInput input {
+    background-color: rgba(255,255,255,0.92) !important;
+    border-radius: 15px !important;
+    border: none !important;
+    padding: 8px !important;
+}
+
+/* Slider */
+.stSlider {
+    color: #ff4b8b !important;
+}
+
+/* Predict Button */
+.stButton>button {
+    width: 100%;
+    border-radius: 40px;
+    height: 60px;
+    border: none;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(to right, #6a11cb, #ff4b8b);
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.4);
+    transition: 0.3s;
+}
+
+.stButton>button:hover {
+    transform: scale(1.03);
+    background: linear-gradient(to right, #ff4b8b, #6a11cb);
+}
+
+/* Glass Effect Container */
+.block-container {
+    background: rgba(255,255,255,0.12);
+    padding: 2rem;
+    border-radius: 25px;
+    backdrop-filter: blur(10px);
+}
+
+/* Metrics */
+[data-testid="metric-container"] {
+    background: rgba(255,255,255,0.15);
+    border-radius: 20px;
+    padding: 15px;
+    color: white;
+}
+
+/* Hide Streamlit Menu/Footer */
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+header {visibility: hidden;}
+
+</style>
+""", unsafe_allow_html=True)
 
 import os
 
@@ -63,7 +172,7 @@ with tab1:
         lat    = st.number_input("Latitude",  12.0, 28.0, 13.0)
         lon    = st.number_input("Longitude", 72.0, 88.0, 77.5)
 
-    if st.button("💰 Price Predict Karo", type="primary"):
+    if st.button("💰 Price Predict ", type="primary"):
         posted_map = {'Owner':0, 'Dealer':1, 'Builder':2}
         bhk_map    = {'BHK':0, 'RK':1}
 
@@ -138,21 +247,6 @@ with tab3:
                         title="Top 10 Feature Importances",
                         color_discrete_sequence=['#45B7D1'])
         st.plotly_chart(fig_fi, use_container_width=True)
-st.markdown("""
-<style>
-.stApp {
-    background-color: #0E1117;
-    color: white;
-}
-</style>
-""", unsafe_allow_html=True)
-page_bg = """
-<style>
-.stApp {
-background-image: url("https://images.unsplash.com/photo-1568605114967-8130f3a36994");
-background-size: cover;
-}
-</style>
-"""
+
 
 st.markdown(page_bg, unsafe_allow_html=True)
