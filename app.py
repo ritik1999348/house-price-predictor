@@ -138,3 +138,21 @@ with tab3:
                         title="Top 10 Feature Importances",
                         color_discrete_sequence=['#45B7D1'])
         st.plotly_chart(fig_fi, use_container_width=True)
+st.markdown("""
+<style>
+.stApp {
+    background-color: #0E1117;
+    color: white;
+}
+</style>
+""", unsafe_allow_html=True)
+page_bg = """
+<style>
+.stApp {
+background-image: url("https://images.unsplash.com/photo-1568605114967-8130f3a36994");
+background-size: cover;
+}
+</style>
+"""
+
+st.markdown(page_bg, unsafe_allow_html=True)
