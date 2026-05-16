@@ -10,6 +10,51 @@ st.set_page_config(
     page_icon="🏠",
     layout="wide"
 )
+page_bg = """
+<style>
+
+[data-testid="stAppViewContainer"]{
+    background-image: linear-gradient(
+        rgba(0,0,0,0.45),
+        rgba(0,0,0,0.45)
+    ),
+    url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+[data-testid="stHeader"]{
+    background: rgba(0,0,0,0);
+}
+
+[data-testid="stSidebar"]{
+    background: rgba(20,20,20,0.7);
+}
+
+h1, h2, h3, h4, h5, h6, p, label{
+    color: white !important;
+}
+
+.stButton>button{
+    background: linear-gradient(to right,#ff4b2b,#ff416c);
+    color: white;
+    border-radius: 12px;
+    border: none;
+    padding: 12px 25px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.stButton>button:hover{
+    transform: scale(1.05);
+    transition: 0.3s;
+}
+
+</style>
+"""
 st.markdown("""
 <style>
 
