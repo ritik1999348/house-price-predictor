@@ -1,31 +1,45 @@
+```python id="gxxaok"
 import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib
 
+# ---------------------------------------------------
+# PAGE CONFIG
+# ---------------------------------------------------
 st.set_page_config(
     page_title="House Price Prediction",
     page_icon="🏠",
     layout="wide"
 )
 
+# ---------------------------------------------------
+# LOAD FILES
+# ---------------------------------------------------
 model = joblib.load("best_model.pkl")
 feature_cols = joblib.load("feature_cols.pkl")
 df = pd.read_csv("house_price.csv.csv")
 
+# ---------------------------------------------------
+# CUSTOM CSS
+# ---------------------------------------------------
 st.markdown("""
 <style>
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 html, body, [class*="css"] {
     font-family: 'Poppins', sans-serif;
 }
 
-/* BACKGROUND IMAGE */
+/* MAIN BACKGROUND */
 [data-testid="stAppViewContainer"]{
     background-image:
-    linear-gradient(rgba(255,255,255,0.45),
-    rgba(255,255,255,0.45)),
-    url("https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=1920&auto=format&fit=crop");
+    linear-gradient(
+        rgba(255,255,255,0.28),
+        rgba(255,255,255,0.28)
+    ),
+    url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2070&auto=format&fit=crop");
 
     background-size: cover;
     background-position: center;
@@ -33,54 +47,54 @@ html, body, [class*="css"] {
     background-attachment: fixed;
 }
 
-/* HEADER */
+/* TOP HEADER */
 [data-testid="stHeader"]{
     background: rgba(0,0,0,0);
 }
 
+/* REMOVE MENU */
+#MainMenu {visibility:hidden;}
+footer {visibility:hidden;}
+
 /* MAIN CONTAINER */
 .block-container{
-    padding-top: 1.5rem;
+    padding-top: 1rem;
     padding-bottom: 2rem;
 }
 
-/* REMOVE STREAMLIT MENU */
-#MainMenu {visibility: hidden;}
-footer {visibility: hidden;}
-
-/* MAIN TITLE */
+/* TITLE */
 .main-title{
-    font-size: 64px;
+    font-size: 70px;
     font-weight: 800;
-    color: #111827;
-    margin-bottom: -10px;
+    color: #0f172a;
+    margin-bottom: -15px;
 }
 
 /* SUBTITLE */
 .sub-title{
-    font-size: 26px;
-    color: #4b5563;
-    margin-bottom: 20px;
+    font-size: 28px;
+    color: #475569;
+    margin-top: -10px;
+    margin-bottom: 25px;
 }
 
 /* GLASS CARD */
 .glass{
     background: rgba(255,255,255,0.30);
-    border-radius: 25px;
+    backdrop-filter: blur(16px);
+    border-radius: 28px;
     padding: 30px;
-    backdrop-filter: blur(14px);
     border: 1px solid rgba(255,255,255,0.4);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
 }
 
-/* INPUT BOX */
-.stTextInput input,
-.stNumberInput input,
-.stSelectbox div[data-baseweb="select"]{
-    border-radius: 14px !important;
-    border: 1px solid #d1d5db !important;
-    padding: 12px !important;
-    background: rgba(255,255,255,0.9) !important;
+/* FORM CARDS */
+.form-card{
+    background: rgba(255,255,255,0.82);
+    padding: 18px;
+    border-radius: 22px;
+    margin-bottom: 18px;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.08);
 }
 
 /* LABELS */
@@ -90,17 +104,45 @@ label{
     color: #111827 !important;
 }
 
+/* INPUT BOXES */
+.stSelectbox div[data-baseweb="select"],
+.stNumberInput input{
+    border-radius: 14px !important;
+    background: rgba(255,255,255,0.95) !important;
+    border: 1px solid #e5e7eb !important;
+    padding: 10px !important;
+}
+
+/* TABS */
+.stTabs [data-baseweb="tab-list"]{
+    gap: 14px;
+}
+
+.stTabs [data-baseweb="tab"]{
+    background: rgba(255,255,255,0.75);
+    border-radius: 14px;
+    padding: 14px 24px;
+    font-size: 21px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.stTabs [aria-selected="true"]{
+    background: white !important;
+    color: #5b5cff !important;
+}
+
 /* BUTTON */
 .stButton>button{
     width: 100%;
-    background: linear-gradient(90deg,#5B5CFF,#FF4FA3);
-    color: white;
+    height: 72px;
     border: none;
     border-radius: 18px;
-    height: 65px;
-    font-size: 26px;
+    background: linear-gradient(90deg,#5b5cff,#ff4fa3);
+    color: white;
+    font-size: 28px;
     font-weight: 700;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.20);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.18);
     transition: 0.3s;
 }
 
@@ -108,122 +150,192 @@ label{
     transform: scale(1.02);
 }
 
-/* TABS */
-.stTabs [data-baseweb="tab-list"]{
-    gap: 15px;
-}
-
-.stTabs [data-baseweb="tab"]{
-    background: rgba(255,255,255,0.6);
-    border-radius: 14px;
-    padding: 12px 20px;
-    font-size: 20px;
-    font-weight: 700;
-}
-
-/* PREDICTION TEXT */
-.prediction{
-    background: rgba(255,255,255,0.75);
-    padding: 25px;
-    border-radius: 20px;
+/* PREDICTION BOX */
+.prediction-box{
+    background: rgba(255,255,255,0.82);
+    padding: 30px;
+    border-radius: 24px;
     text-align: center;
-    font-size: 36px;
+    font-size: 40px;
     font-weight: 800;
     color: #111827;
-    margin-top: 25px;
+    margin-top: 30px;
 }
 
 </style>
 """, unsafe_allow_html=True)
 
-col1, col2 = st.columns([1,10])
+# ---------------------------------------------------
+# HEADER
+# ---------------------------------------------------
+col1, col2, col3 = st.columns([1,8,2])
 
 with col1:
     st.markdown("# 🏠")
 
 with col2:
-    st.markdown('<div class="main-title">House Price Prediction</div>', unsafe_allow_html=True)
-    st.markdown('<div class="sub-title">Smart Machine Learning Model</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="main-title">House Price Prediction</div>',
+        unsafe_allow_html=True
+    )
 
+    st.markdown(
+        '<div class="sub-title">Smart Machine Learning Model</div>',
+        unsafe_allow_html=True
+    )
+
+with col3:
+    st.markdown("""
+    <div style="
+    background:white;
+    padding:12px 18px;
+    border-radius:18px;
+    text-align:center;
+    font-weight:700;
+    color:#ff4fa3;
+    margin-top:15px;">
+    Made with ❤️
+    </div>
+    """, unsafe_allow_html=True)
+
+# ---------------------------------------------------
+# TABS
+# ---------------------------------------------------
 tab1, tab2, tab3 = st.tabs([
     "📈 Predict Price",
     "📊 Data Analysis",
     "ℹ️ Model Info"
 ])
 
+# ---------------------------------------------------
+# TAB 1
+# ---------------------------------------------------
 with tab1:
 
     st.markdown('<div class="glass">', unsafe_allow_html=True)
 
-    st.markdown("## 🏘️ Property Details Bharo")
-    st.markdown("### Sahi jankari bharein, accurate price paayein ✨")
+    st.markdown("""
+    <h1 style='color:#0f172a;font-size:38px;font-weight:800;'>
+    🏘️ Property Details Bharo
+    </h1>
+    """, unsafe_allow_html=True)
 
-    col1, col2, col3 = st.columns(3)
+    st.markdown("""
+    <p style='font-size:22px;color:#475569;margin-top:-10px;'>
+    Sahi jankari bharein, accurate price paayein ✨
+    </p>
+    """, unsafe_allow_html=True)
 
-    with col1:
+    c1, c2, c3 = st.columns(3)
+
+    with c1:
+
+        st.markdown('<div class="form-card">', unsafe_allow_html=True)
+
         posted_by = st.selectbox(
             "👤 Dealer",
-            ["Dealer", "Owner", "Builder"]
+            ["Dealer","Owner","Builder"]
         )
+
+        st.markdown('</div>', unsafe_allow_html=True)
+
+        st.markdown('<div class="form-card">', unsafe_allow_html=True)
 
         bhk = st.slider(
             "🛏️ BHK Number",
-            1, 10, 2
+            1,10,2
         )
+
+        st.markdown('</div>', unsafe_allow_html=True)
+
+        st.markdown('<div class="form-card">', unsafe_allow_html=True)
 
         property_type = st.selectbox(
             "🏡 Property Type",
-            ["BHK", "Villa", "Apartment"]
+            ["BHK","Villa","Apartment"]
         )
 
-    with col2:
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    with c2:
+
+        st.markdown('<div class="form-card">', unsafe_allow_html=True)
+
         sqft = st.number_input(
             "📐 Square Feet",
             value=1000
         )
 
-        under_const = st.selectbox(
+        st.markdown('</div>', unsafe_allow_html=True)
+
+        st.markdown('<div class="form-card">', unsafe_allow_html=True)
+
+        under = st.selectbox(
             "🏗️ Under Construction?",
-            ["No", "Yes"]
+            ["No","Yes"]
         )
 
-        ready_move = st.selectbox(
+        st.markdown('</div>', unsafe_allow_html=True)
+
+        st.markdown('<div class="form-card">', unsafe_allow_html=True)
+
+        ready = st.selectbox(
             "✅ Ready to Move?",
-            ["Yes", "No"]
+            ["Yes","No"]
         )
 
-    with col3:
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    with c3:
+
+        st.markdown('<div class="form-card">', unsafe_allow_html=True)
+
         rera = st.selectbox(
             "🛡️ RERA Approved?",
-            ["Yes", "No"]
+            ["Yes","No"]
         )
+
+        st.markdown('</div>', unsafe_allow_html=True)
+
+        st.markdown('<div class="form-card">', unsafe_allow_html=True)
 
         resale = st.selectbox(
             "🔄 Resale Property?",
-            ["No", "Yes"]
+            ["No","Yes"]
         )
+
+        st.markdown('</div>', unsafe_allow_html=True)
+
+        st.markdown('<div class="form-card">', unsafe_allow_html=True)
 
         latitude = st.number_input(
             "📍 Latitude",
             value=13.00
         )
 
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    st.markdown('<div class="form-card">', unsafe_allow_html=True)
+
     longitude = st.number_input(
         "📌 Longitude",
         value=77.50
     )
 
-    # BUTTON
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    # PREDICT BUTTON
     if st.button("📈 Price Predict Karo →"):
 
         try:
+
             input_data = pd.DataFrame([{
                 "posted_by": posted_by,
-                "under_construction": under_const,
+                "under_construction": under,
                 "rera": rera,
                 "bhk_no": bhk,
                 "square_ft": sqft,
-                "ready_to_move": ready_move,
+                "ready_to_move": ready,
                 "resale": resale,
                 "longitude": longitude,
                 "latitude": latitude
@@ -239,21 +351,21 @@ with tab1:
 
             prediction = model.predict(input_data)[0]
 
-            st.markdown(
-                f'''
-                <div class="prediction">
-                🏷️ Estimated House Price <br><br>
-                ₹ {prediction:,.2f} Lakhs
-                </div>
-                ''',
-                unsafe_allow_html=True
-            )
+            st.markdown(f"""
+            <div class="prediction-box">
+            🏷️ Estimated House Price <br><br>
+            ₹ {prediction:,.2f} Lakhs
+            </div>
+            """, unsafe_allow_html=True)
 
         except Exception as e:
-            st.error(f"Error: {e}")
+            st.error(e)
 
-    st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
 
+# ---------------------------------------------------
+# TAB 2
+# ---------------------------------------------------
 with tab2:
 
     st.markdown('<div class="glass">', unsafe_allow_html=True)
@@ -262,8 +374,11 @@ with tab2:
 
     st.dataframe(df.head())
 
-    st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
 
+# ---------------------------------------------------
+# TAB 3
+# ---------------------------------------------------
 with tab3:
 
     st.markdown('<div class="glass">', unsafe_allow_html=True)
@@ -271,11 +386,12 @@ with tab3:
     st.subheader("ℹ️ Model Information")
 
     st.write("""
-    ✔️ Machine Learning Model Used  
-    ✔️ Real Estate Dataset  
-    ✔️ Price Prediction System  
-    ✔️ Streamlit Deployment  
-    ✔️ Interactive Dashboard  
+    ✔️ Machine Learning Model  
+    ✔️ Streamlit Dashboard  
+    ✔️ Real Estate Prediction  
+    ✔️ Interactive UI  
+    ✔️ Live Deployment  
     """)
 
-    st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
+```
