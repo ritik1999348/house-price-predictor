@@ -14,157 +14,72 @@ page_bg = """
 <style>
 
 [data-testid="stAppViewContainer"]{
-    background-image: linear-gradient(
-        rgba(0,0,0,0.45),
-        rgba(0,0,0,0.45)
-    ),
-    url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c");
+background-image:
+linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+url("https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1920&auto=format&fit=crop");
 
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+background-attachment: fixed;
 }
 
 [data-testid="stHeader"]{
-    background: rgba(0,0,0,0);
+background: rgba(0,0,0,0);
 }
 
-[data-testid="stSidebar"]{
-    background: rgba(20,20,20,0.7);
+[data-testid="stToolbar"]{
+right: 2rem;
 }
 
-h1, h2, h3, h4, h5, h6, p, label{
-    color: white !important;
+.block-container{
+padding-top: 2rem;
+padding-bottom: 2rem;
+background: rgba(0,0,0,0.35);
+border-radius: 20px;
+backdrop-filter: blur(6px);
+}
+
+h1{
+color: white !important;
+font-size: 55px !important;
+font-weight: 800 !important;
+}
+
+h2,h3,h4,h5,h6,p,label{
+color: white !important;
 }
 
 .stButton>button{
-    background: linear-gradient(to right,#ff4b2b,#ff416c);
-    color: white;
-    border-radius: 12px;
-    border: none;
-    padding: 12px 25px;
-    font-size: 18px;
-    font-weight: bold;
+background: linear-gradient(90deg,#ff512f,#dd2476);
+color: white;
+border: none;
+border-radius: 14px;
+padding: 12px 28px;
+font-size: 18px;
+font-weight: bold;
+box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
 .stButton>button:hover{
-    transform: scale(1.05);
-    transition: 0.3s;
+transform: scale(1.05);
+transition: 0.3s;
+}
+
+[data-baseweb="input"]{
+background: rgba(255,255,255,0.88) !important;
+border-radius: 12px !important;
+}
+
+[data-baseweb="select"]{
+background: rgba(255,255,255,0.88) !important;
+border-radius: 12px !important;
 }
 
 </style>
 """
-st.markdown("""
-<style>
 
-/* Main App */
-.stApp {
-    background-image: url("https://images.unsplash.com/photo-1600585154526-990dced4db0d");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-}
-
-/* Dark Overlay */
-.main::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.35);
-    z-index: -1;
-}
-
-/* Title */
-h1 {
-    color: white !important;
-    font-size: 55px !important;
-    font-weight: 800 !important;
-}
-
-/* Subheader */
-h3 {
-    color: white !important;
-    font-size: 40px !important;
-    font-weight: 700 !important;
-}
-
-/* Labels */
-label {
-    color: white !important;
-    font-weight: 600 !important;
-}
-
-/* Tabs */
-.stTabs [data-baseweb="tab"] {
-    font-size: 18px;
-    font-weight: 600;
-    color: white;
-    background: rgba(255,255,255,0.15);
-    border-radius: 10px;
-    padding: 10px 20px;
-    margin-right: 10px;
-}
-
-/* Input Boxes */
-.stSelectbox div[data-baseweb="select"],
-.stNumberInput input {
-    background-color: rgba(255,255,255,0.92) !important;
-    border-radius: 15px !important;
-    border: none !important;
-    padding: 8px !important;
-}
-
-/* Slider */
-.stSlider {
-    color: #ff4b8b !important;
-}
-
-/* Predict Button */
-.stButton>button {
-    width: 100%;
-    border-radius: 40px;
-    height: 60px;
-    border: none;
-    font-size: 24px;
-    font-weight: bold;
-    color: white;
-    background: linear-gradient(to right, #6a11cb, #ff4b8b);
-    box-shadow: 0px 4px 15px rgba(0,0,0,0.4);
-    transition: 0.3s;
-}
-
-.stButton>button:hover {
-    transform: scale(1.03);
-    background: linear-gradient(to right, #ff4b8b, #6a11cb);
-}
-
-/* Glass Effect Container */
-.block-container {
-    background: rgba(255,255,255,0.12);
-    padding: 2rem;
-    border-radius: 25px;
-    backdrop-filter: blur(10px);
-}
-
-/* Metrics */
-[data-testid="metric-container"] {
-    background: rgba(255,255,255,0.15);
-    border-radius: 20px;
-    padding: 15px;
-    color: white;
-}
-
-/* Hide Streamlit Menu/Footer */
-#MainMenu {visibility: hidden;}
-footer {visibility: hidden;}
-header {visibility: hidden;}
-
-</style>
-""", unsafe_allow_html=True)
+st.markdown(page_bg, unsafe_allow_html=True)
 
 import os
 
