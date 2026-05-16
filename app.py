@@ -2,7 +2,13 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib
-
+st.markdown("""
+    <style>
+        .stApp {
+            background: linear-gradient(to bottom right, #f5f7fb, #ffffff);
+        }
+    </style>
+""", unsafe_allow_html=True)
 
 st.set_page_config(
     page_title="House Price Prediction",
