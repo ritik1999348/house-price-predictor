@@ -1,28 +1,21 @@
-```python id="gxxaok"
 import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib
 
-# ---------------------------------------------------
-# PAGE CONFIG
-# ---------------------------------------------------
+
 st.set_page_config(
     page_title="House Price Prediction",
     page_icon="🏠",
     layout="wide"
 )
 
-# ---------------------------------------------------
-# LOAD FILES
-# ---------------------------------------------------
+
 model = joblib.load("best_model.pkl")
 feature_cols = joblib.load("feature_cols.pkl")
 df = pd.read_csv("house_price.csv.csv")
 
-# ---------------------------------------------------
-# CUSTOM CSS
-# ---------------------------------------------------
+
 st.markdown("""
 <style>
 
@@ -165,9 +158,7 @@ label{
 </style>
 """, unsafe_allow_html=True)
 
-# ---------------------------------------------------
-# HEADER
-# ---------------------------------------------------
+
 col1, col2, col3 = st.columns([1,8,2])
 
 with col1:
@@ -198,18 +189,14 @@ with col3:
     </div>
     """, unsafe_allow_html=True)
 
-# ---------------------------------------------------
-# TABS
-# ---------------------------------------------------
+
 tab1, tab2, tab3 = st.tabs([
     "📈 Predict Price",
     "📊 Data Analysis",
     "ℹ️ Model Info"
 ])
 
-# ---------------------------------------------------
-# TAB 1
-# ---------------------------------------------------
+
 with tab1:
 
     st.markdown('<div class="glass">', unsafe_allow_html=True)
@@ -325,7 +312,7 @@ with tab1:
     st.markdown('</div>', unsafe_allow_html=True)
 
     # PREDICT BUTTON
-    if st.button("📈 Price Predict Karo →"):
+    if st.button("📈 Price Prediction →"):
 
         try:
 
@@ -363,9 +350,7 @@ with tab1:
 
     st.markdown('</div>', unsafe_allow_html=True)
 
-# ---------------------------------------------------
-# TAB 2
-# ---------------------------------------------------
+
 with tab2:
 
     st.markdown('<div class="glass">', unsafe_allow_html=True)
@@ -376,10 +361,6 @@ with tab2:
 
     st.markdown('</div>', unsafe_allow_html=True)
 
-# ---------------------------------------------------
-# TAB 3
-# ---------------------------------------------------
-with tab3:
 
     st.markdown('<div class="glass">', unsafe_allow_html=True)
 
