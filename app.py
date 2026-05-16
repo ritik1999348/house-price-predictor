@@ -39,8 +39,6 @@ model, feature_cols = load_model()
 df = load_data()
 
 st.title("🏠 House Price Prediction")
-st.markdown("**Machine Learning se ghar ki kimat jaano**")
-st.markdown("---")
 
 tab1, tab2, tab3 = st.tabs(["🔮 Predict Price", "📊 Data Analysis", "🤖 Model Info"])
 
