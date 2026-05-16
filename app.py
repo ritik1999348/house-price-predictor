@@ -16,9 +16,11 @@ import os
 
 BASE_DIR = os.getcwd()
 
-DATA_PATH  = r"C:\Users\RITIK KUMAR SINGH\Desktop\HousePriceApp\house_price.csv.csv"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+DATA_PATH = os.path.join(BASE_DIR, 'house_price.csv.csv')
 MODEL_PATH = os.path.join(BASE_DIR, 'best_model.pkl')
-FEAT_PATH  = os.path.join(BASE_DIR, 'feature_cols.pkl')
+FEAT_PATH = os.path.join(BASE_DIR, 'feature_cols.pkl')
 
 print(DATA_PATH)
 print(os.path.exists(DATA_PATH))
